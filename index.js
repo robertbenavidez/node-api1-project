@@ -27,15 +27,22 @@ server.get('/api/users', (req, res) => {
 server.get('/api/users/:id', (req, res) => {
     const {id} = req.params;
 
+    const userData = req.body
+
+    if (userData.id){
+
     usersModel
         .findById(id)
         .then(user => {
-            res.json(user)
-        })
+            res.json(user)})
         .catch(error => {
             res.status.json({  message: "The user with the specified ID does not exist."  })
         })
+    } else {
+        res.status(404).json({ message: "user doesn't exist."})
+    }
 })
+
 
 // POST new user
 
@@ -48,7 +55,7 @@ server.post('/api/users', (req, res) => {
             res.status(201).json(user)
         })
         .catch(error => {
-            res.status.json({  message: "Unable to add user."  })
+            res.status(500).json({  message: "Unable to add user."  })
         })
 })
 
