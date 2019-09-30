@@ -18,7 +18,7 @@ server.get('/api/users', (req, res) => {
             res.send(users)
         })
         .catch(error => {
-            res.send(error)
+            res.status(500).json({ error: "The users information could not be retrieved." })
         })
 })
 
@@ -33,7 +33,22 @@ server.get('/api/users/:id', (req, res) => {
             res.json(user)
         })
         .catch(error => {
-            res.send(error)
+            res.status.json({  message: "The user with the specified ID does not exist."  })
+        })
+})
+
+// POST new user
+
+server.post('/api/users', (req, res) => {
+    const userData = req.body;
+
+    usersModel
+        .insert(userData)
+        .then(user => {
+            res.status(201).json(user)
+        })
+        .catch(error => {
+            res.status.json({  message: "Unable to add user."  })
         })
 })
 
