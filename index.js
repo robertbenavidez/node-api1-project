@@ -70,6 +70,22 @@ server.put('/api/users/:id', (req, res) => {
         })
 })
 
+// Delete user
+
+server.delete('/api/users/:id', (req, res) => {
+    const {id} = req.params;
+
+    usersModel
+        .remove(id)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(error => {
+            res.status.json({  message: "Unable to delete user."  })
+        })
+})
+
+
 
 
 
