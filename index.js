@@ -49,7 +49,12 @@ server.get('/api/users/:id', (req, res) => {
 server.post('/api/users', (req, res) => {
     const userData = req.body;
 
-    usersModel
+    if(!userData.name || !userData.bio) {
+        return res.status(400).json({message: "missing user information"})
+    } else {
+
+
+        usersModel
         .insert(userData)
         .then(user => {
             res.status(201).json(user)
@@ -57,6 +62,8 @@ server.post('/api/users', (req, res) => {
         .catch(error => {
             res.status(500).json({  message: "Unable to add user."  })
         })
+
+    } 
 })
 
 //
