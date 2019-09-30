@@ -22,6 +22,21 @@ server.get('/api/users', (req, res) => {
         })
 })
 
+// GET user by ID
+
+server.get('/api/users/:id', (req, res) => {
+    const {id} = req.params;
+
+    usersModel
+        .findById(id)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(error => {
+            res.send(error)
+        })
+})
+
 
 
 
