@@ -52,6 +52,23 @@ server.post('/api/users', (req, res) => {
         })
 })
 
+//
+
+// Update user information
+
+server.put('/api/users/:id', (req, res) => {
+    const {id} = req.params
+    const changes = req.body
+
+    usersModel
+        .update(id, changes)
+        .then(user => {
+            res.status(201).json(user)
+        })
+        .catch(error => {
+            res.status.json({  message: "Unable to update user."  })
+        })
+})
 
 
 
