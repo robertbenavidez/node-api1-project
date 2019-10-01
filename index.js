@@ -2,10 +2,13 @@ const express = require('express')
 
 const usersModel = require('./data/db.js')
 
+const cors = require('cors')
+
 
 const server = express()
 
 server.use(express.json())
+server.use(cors())
 
 
 
@@ -52,8 +55,6 @@ server.post('/api/users', (req, res) => {
     if(!userData.name || !userData.bio) {
         return res.status(400).json({message: "missing user information"})
     } else {
-
-
         usersModel
         .insert(userData)
         .then(user => {
